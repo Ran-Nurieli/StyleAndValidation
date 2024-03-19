@@ -23,6 +23,7 @@
         <Label Text="סיסמה" />
         <Entry IsPassword="{Binding ShowPassword}" Text="{Binding Password}" />
         <Button
+            Style="{StaticResource LoginBtnStyle}"
             Margin="0,-42,0,0"
             Background="Transparent"
             BorderColor="Transparent"
@@ -37,6 +38,7 @@
             Text="התחבר" />
         <HorizontalStackLayout Spacing="200">
             <Button
+                Style="{StaticResource LoginBtnStyle}"
                 Background="Transparent"
                 Command="{Binding RegisterCommand}"
                 FontAttributes="Bold"
@@ -45,6 +47,7 @@
                 TextColor="black"
                 VerticalOptions="Center" />
             <Button
+                Style="{StaticResource LoginBtnStyle}"
                 Background="Transparent"
                 Command="{Binding ForgotPasswordCommand}"
                 HorizontalOptions="End"

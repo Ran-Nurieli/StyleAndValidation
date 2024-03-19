@@ -84,6 +84,8 @@ namespace StyleAndValidation.ViewModels
             #region סגירת מסך טעינה
             await loading.Close();
             #endregion
+            AppShell.Current.Navigation.PopModalAsync();
+
             if (ok)
             {
                 await AppShell.Current.DisplayAlert("הצלחה", "הנך מועבר.ת למסך הכניסה", "Ok");
@@ -125,6 +127,15 @@ namespace StyleAndValidation.ViewModels
             cmd.ChangeCanExecute();
             return ok;
         }
+        //private bool ValidatePassword() // finish it based on  ValidateUserName
+        //{
+        //    bool ok = (!string.IsNullOrEmpty(Password)) && (Password.Length > 4 && Password.Length < 16);
+        //    switch (ok)
+        //    {
+        //        case false:
+                    
+        //    }
+        //}
 
         
 

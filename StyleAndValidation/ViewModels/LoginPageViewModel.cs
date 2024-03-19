@@ -19,7 +19,7 @@ namespace StyleAndValidation.ViewModels
         #endregion
 
         #region Properties
-        public string Password { get => password; set { password = value; OnPropertyChanged(); } }
+        public string Password { get => password; set { password = value; OnPropertyChanged(); ((Command)LoginCommand).ChangeCanExecute(); } }
         public bool ShowPassword { get => showPassword; set{ showPassword = value; OnPropertyChanged(); } }
         public string Username
         {
@@ -34,6 +34,7 @@ namespace StyleAndValidation.ViewModels
                     //בדיקה האם הכפתור צריך להיות מנוטרל או פעיל
                     var cmd = LoginCommand as Command;
                     cmd.ChangeCanExecute();
+                    ((Command)LoginCommand).ChangeCanExecute();
                 }
             }
         }
@@ -54,11 +55,19 @@ namespace StyleAndValidation.ViewModels
         {
             appServices = service;
 
-            LoginCommand = new Command(async() => {bool success= await appServices.Login(Username, Password);  if (success) await AppShell.Current.GoToAsync("///MyPage"); });
+            LoginCommand = new Command(async() => {
+                await AppShell.Current.GoToAsync("LOADING");
+                bool success = await appServices.Login(Username, Password); 
+                if (success) 
+                    await AppShell.Current.GoToAsync("///MyPage"); }
+            ,()=> !string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password));
             RegisterCommand = new Command(async () => { await AppShell.Current.GoToAsync("Register"); });
             ForgotPasswordCommand = new Command( () => { });
             ShowPasswordCommand = new Command(() => ShowPassword = !ShowPassword);
             ShowPassword = true;
+
+
         }
+        
     }
 }
